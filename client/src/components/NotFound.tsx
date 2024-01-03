@@ -1,6 +1,6 @@
 const NotFound = () => (
   <>
-    <h2 className="subtitle has-text-danger">NOT FOUND!</h2>
+    <h2>NOT FOUND!</h2>
   </>
 );
 
