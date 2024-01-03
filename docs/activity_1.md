@@ -4,9 +4,9 @@
 
 Much of this task is about practicing taking a visual design and turning it into an actual website.
 
-Take a look at this image the goverment of Fakelandia have provided:
+Take a look at this image the government of Fakelandia have provided:
 
-![Homepage](./images/homepage.png 'Sketched homepage')
+![Homepage](./images/homepage.png "Sketched homepage")
 
 This is their desired homepage. From the header, it looks like you'll want multiple **routes**. Perhaps one for your homepage, and perhaps one each for the "misdemeanours" and "confession" pages?
 
@@ -70,10 +70,10 @@ From the image we've seen so far, it seems like the Fakelandians want a header w
 
 👉 Remember to **commit** your code often. Small commits with descriptive messages are best, e.g.:
 
--   "feat: Initial commit"
--   "chore(deps): Installed `react-router`"
--   "feat: Added base route components"
--   "feat: Added footer"
--   "fix: Removed footer"
+- "feat: Initial commit"
+- "chore(deps): Installed `react-router`"
+- "feat: Added base route components"
+- "feat: Added footer"
+- "fix: Removed footer"
 
 So far we've set up the basics of a functioning website! Let's get looking at that misdemeanours page in [activity 2](./activity_2.md)
