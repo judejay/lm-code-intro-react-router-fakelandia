@@ -11,6 +11,13 @@ const Misdemeanor: React.FC = () => {
   const { isFetching, data, errorMessage } = useFetch<ResponseDate>(serverUrl);
   if (isFetching) return <p>Fetching</p>;
   if (errorMessage) return <p>{errorMessage}</p>;
-  if (data) return <p>{data.misdemeanours.map((I) => I.citizenId)}</p>;
+  if (data)
+    return data.misdemeanours.map((incident, index) => (
+      <div key={index}>
+        <p>{incident.citizenId}</p>
+        <p>{incident.date}</p>
+        <p>{incident.misdemeanour}</p>
+      </div>
+    ));
 };
 export default Misdemeanor;
