@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 import "./Nav.css";
 const Nav = () => (
-  <nav id="navbar" style={{ width: "100%" }}>
-    <ul style={{ width: "100%" }}>
+  <nav id="navbar">
+    <ul>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>

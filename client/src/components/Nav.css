@@ -4,5 +4,8 @@
 
 #navbar {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+}
+ul {
+  list-style-type: none;
 }

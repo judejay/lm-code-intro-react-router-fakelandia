@@ -1,11 +1,14 @@
-header {
+.header {
   display: flex;
+  justify-content: space-between;
   width: 100%;
 }
 
 .title-container {
   display: flex;
   flex-direction: column;
+  text-transform: uppercase;
+  align-items: start;
 }
 
 .title {
