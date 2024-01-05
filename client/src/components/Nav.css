@@ -1,3 +1,8 @@
 #navbar a.active {
   color: red;
 }
+
+#navbar {
+  display: flex;
+  flex-direction: row;
+}
