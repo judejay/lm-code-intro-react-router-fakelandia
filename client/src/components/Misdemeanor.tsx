@@ -25,14 +25,23 @@ const Misdemeanor: React.FC = () => {
     fetchDataFromApi();
   }, [fetchData]);
 
-  return data.map((incident, index) => (
-    <div key={index}>
-      <Incident
-        citizenId={incident.citizenId}
-        date={incident.date}
-        misdemeanour={incident.misdemeanour}
-      />
-    </div>
-  ));
+  return (
+    <table>
+      <thead>
+        <th>Citizen ID</th>
+        <th>Date</th>
+        <th>Misdemeanour</th>
+      </thead>
+      <tbody>
+        {data.map((incident) => (
+          <Incident
+            citizenId={incident.citizenId}
+            date={incident.date}
+            misdemeanour={incident.misdemeanour}
+          />
+        ))}
+      </tbody>
+    </table>
+  );
 };
 export default Misdemeanor;
