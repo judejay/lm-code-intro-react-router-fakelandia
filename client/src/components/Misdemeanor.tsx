@@ -1,23 +1,35 @@
-import useFetch from "../hooks/useFetch";
 import { Misdemeanour } from "../types/misdemeanor.types";
+import { useMyContext } from "../hooks/useContext";
+import { useEffect, useState } from "react";
 
-interface ResponseDate {
+export interface ResponseData {
   misdemeanours: Misdemeanour[];
 }
 
 const Misdemeanor: React.FC = () => {
-  const serverUrl = "http://localhost:8080/api/misdemeanours/1";
+  // if (isFetching) return <p>Fetching</p>;
+  // if (errorMessage) return <p>{errorMessage}</p>;
+  const [data, setData] = useState<Misdemeanour[]>([]);
+  const { fetchData } = useMyContext();
 
-  const { isFetching, data, errorMessage } = useFetch<ResponseDate>(serverUrl);
-  if (isFetching) return <p>Fetching</p>;
-  if (errorMessage) return <p>{errorMessage}</p>;
-  if (data)
-    return data.misdemeanours.map((incident, index) => (
-      <div key={index}>
-        <p>{incident.citizenId}</p>
-        <p>{incident.date}</p>
-        <p>{incident.misdemeanour}</p>
-      </div>
-    ));
+  useEffect(() => {
+    const fetchDataFromApi = async () => {
+      try {
+        const data = await fetchData();
+        setData(data.misdemeanours);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDataFromApi();
+  }, [fetchData]);
+
+  return data.map((incident, index) => (
+    <div key={index}>
+      <p>{incident.citizenId}</p>
+      <p>{incident.date}</p>
+      <p>{incident.misdemeanour}</p>
+    </div>
+  ));
 };
 export default Misdemeanor;
