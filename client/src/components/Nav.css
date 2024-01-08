@@ -1,17 +1,12 @@
 #navbar a.active {
   color: red;
 }
-
+#navbar a {
+  text-decoration: none;
+}
 #navbar {
   display: flex;
   flex-direction: row;
-}
-ul {
-  list-style-type: none;
-}
-
-li {
-  text-decoration: none;
 }
 
 .link-container {
@@ -26,4 +21,5 @@ li {
   margin: 0%;
   padding: auto;
   padding-left: 1rem;
+  text-decoration: none;
 }
