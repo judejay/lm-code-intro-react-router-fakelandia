@@ -4,8 +4,12 @@
 
 #navbar {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 ul {
   list-style-type: none;
+}
+
+li {
+  text-decoration: none;
 }
