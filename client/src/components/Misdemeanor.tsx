@@ -1,6 +1,7 @@
 import { Misdemeanour } from "../types/misdemeanor.types";
 import { useMyContext } from "../hooks/useContext";
 import { useEffect, useState } from "react";
+import Incident from "./Incident";
 
 export interface ResponseData {
   misdemeanours: Misdemeanour[];
@@ -26,9 +27,11 @@ const Misdemeanor: React.FC = () => {
 
   return data.map((incident, index) => (
     <div key={index}>
-      <p>{incident.citizenId}</p>
-      <p>{incident.date}</p>
-      <p>{incident.misdemeanour}</p>
+      <Incident
+        citizenId={incident.citizenId}
+        date={incident.date}
+        misdemeanour={incident.misdemeanour}
+      />
     </div>
   ));
 };
