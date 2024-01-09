@@ -6,7 +6,6 @@ import Incident from "./Incident";
 export interface ResponseData {
   misdemeanours: Misdemeanour[];
 }
-
 //const url = "https://picsum.photos/100/100";
 
 const Misdemeanor: React.FC = () => {
@@ -17,9 +16,7 @@ const Misdemeanor: React.FC = () => {
     const fetchDataFromApi = async () => {
       try {
         const data = await fetchData();
-        data.misdemeanours.forEach((incident) => {
-          incident.punishment = "https://picsum.photos/100/100";
-        });
+
         setData(data.misdemeanours);
       } catch (error) {
         console.log(error);
@@ -45,7 +42,6 @@ const Misdemeanor: React.FC = () => {
             citizenId={incident.citizenId}
             date={incident.date}
             misdemeanour={incident.misdemeanour}
-            url={incident.punishment}
           />
         ))}
       </tbody>
