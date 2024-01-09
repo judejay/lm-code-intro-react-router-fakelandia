@@ -12,7 +12,7 @@ const Confession: React.FC = () => <>
     </p>
 
 
-    <form className="form">
+    <form aria-label="form" className="form">
         <div className="form-group">
             <label htmlFor="subject">Subject:</label>
             <input type="text" name="subject" id="subject" placeholder="input" />
