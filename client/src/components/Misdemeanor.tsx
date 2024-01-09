@@ -10,6 +10,15 @@ export interface ResponseData {
 const Misdemeanor: React.FC = () => {
   const [data, setData] = useState<Misdemeanour[]>([]);
   const { fetchData } = useMyContext();
+  const [selectedMisdemeanor, setSelectedMisdemeanor] = useState('');
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedMisdemeanor(event.target.value);
+  };
+
+  const filteredData = selectedMisdemeanor
+    ? data.filter(incident => incident.misdemeanour === selectedMisdemeanor)
+    : data;
 
   useEffect(() => {
     const fetchDataFromApi = async () => {
@@ -31,12 +40,18 @@ const Misdemeanor: React.FC = () => {
           <tr>
             <th>Citizen ID</th>
             <th>Date</th>
-            <th>Misdemeanour</th>
+            <th>{<select value={selectedMisdemeanor} onChange={handleSelectChange}>
+              <option value="">All Misdemeanour</option>
+              <option value="lift">Lift</option>
+              <option value="vegetables">Vegetables</option>
+              <option value="rudeness">Rudeness</option>
+              <option value="united">United</option>
+            </select>}</th>
             <th>Punishment</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((incident) => (
+          {filteredData.map((incident) => (
             <Incident
               key={incident.citizenId}
               citizenId={incident.citizenId}
