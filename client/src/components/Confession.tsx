@@ -14,11 +14,11 @@ const Confession: React.FC = () => <>
 
     <form className="form">
         <div className="form-group">
-            <label htmlFor="subject">Subject</label>
+            <label htmlFor="subject">Subject:</label>
             <input type="text" name="subject" id="subject" placeholder="input" />
         </div>
         <div className="form-group">
-            <label htmlFor="reason">Reason for contact</label>
+            <label htmlFor="reason">Reason for contact:</label>
             <select name="reason" id="reason">
                 <option value="none">Select</option>
                 <option value="united">United</option>
@@ -29,10 +29,10 @@ const Confession: React.FC = () => <>
             </select>
         </div>
         <div className="form-group">
-            <label htmlFor="confession">Confession</label>
+            <label htmlFor="confession"></label>
             <textarea name="confession" id="confession" cols={30} rows={10}></textarea>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Confess</button>
     </form>
 
 
