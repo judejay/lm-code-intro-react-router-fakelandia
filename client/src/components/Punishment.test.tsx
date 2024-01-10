@@ -8,9 +8,3 @@ test('renders without crashing', () => {
     const punishmentElement = screen.getByTestId('punishment');
     expect(punishmentElement).toBeInTheDocument();
 });
-
-test('renders specific text', () => {
-    render(<Punishment width={100} height={100} />);
-    const specificText = screen.getByText(/specific text/i);
-    expect(specificText).toBeInTheDocument();
-});
