@@ -1,40 +1,109 @@
+import { ChangeEvent, FormEvent, useState, EventHandler } from 'react';
 import './Confession.css';
+import { MISDEMEANOURS } from '../types/misdemeanor.types';
+type HtmlEvent = React.ChangeEvent<HTMLSelectElement>;
 
 
-const Confession: React.FC = () => <>
-    <p>
-        It's very difficult to cathc people committing misdemeanours so we apprceciate it when citizens confess to us directly.
 
-    </p>
-    <p>
-        However, if you're just having a hard day and need to vent then you're welcome to contact us here too. Up to you!
+const Confession: React.FC = () => {
+    const [mySelectInputValue, setMySelectInputValue] =
+        useState<typeof MISDEMEANOURS>();
+    const [invalid, setInvalid] = useState(true);
+    const [myTextInputValue, setMyTextInputValue] = useState({
+        subject: "",
+        confession: ""
 
-    </p>
+    });
+
+    function validate() {
+        if (
+            myTextInputValue.confession &&
+            myTextInputValue.subject &&
+            mySelectInputValue
+        ) {
+            setInvalid(false);
+            console.log(myTextInputValue);
+            console.log(mySelectInputValue);
+        } else {
+            setInvalid(true);
+        }
+    }
+
+    const handleSelect: EventHandler<HtmlEvent> = (event: HtmlEvent): void => {
+        console.log(event.target.value);
+        setMySelectInputValue(event.target.value as unknown as typeof MISDEMEANOURS);
+        validate();
+    };
+
+    function handleTextChange(event: ChangeEvent<HTMLTextAreaElement>): void {
+        console.log(event.target.value);
+
+        setMyTextInputValue({
+            ...myTextInputValue,
+            [event.target.name]: event.target.value,
+        })
+        validate();
+    }
+    function handleChange(event: ChangeEvent<HTMLInputElement>): void {
+        console.log(event.target.value);
+
+        setMyTextInputValue({
+            ...myTextInputValue,
+            [event.target.name]: event.target.value,
+        });
+        validate();
+    }
+
+    function handleSubmit(event: FormEvent<HTMLFormElement>): void {
+        event.preventDefault();
+
+    }
+
+    return (
+        <> <p>
+            It's very difficult to catch people committing misdemeanours so we appreciate it when citizens confess to us directly.
+
+        </p>
+            <p>
+                However, if you're just having a hard day and need to vent then you're welcome to contact us here too. Up to you!
+
+            </p>
 
 
-    <form aria-label="form" className="form">
-        <div className="form-group">
-            <label htmlFor="subject">Subject:</label>
-            <input type="text" name="subject" id="subject" placeholder="input" />
-        </div>
-        <div className="form-group">
-            <label htmlFor="reason">Reason for contact:</label>
-            <select name="reason" id="reason">
-                <option value="none">Select</option>
-                <option value="united">United</option>
-                <option value="lift">Lift</option>
-                <option value="vegetables">Vegetables</option>
-                <option value="rudeness">Rudeness</option>
-                <option value="vent">I just want to talk</option>
-            </select>
-        </div>
-        <div className="form-group">
-            <label htmlFor="confession"></label>
-            <textarea name="confession" id="confession" cols={30} rows={10}></textarea>
-        </div>
-        <button type="submit">Confess</button>
-    </form>
+            <form onSubmit={handleSubmit} aria-label="form" className="form">
+                <div className="form-group">
+                    <label htmlFor="subject">Subject:</label>
+                    <input
+                        value={myTextInputValue.subject ?? ""}
+
+                        onChange={handleChange}
+                        type="text" name="subject" id="subject" placeholder="input" />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="reason">Reason for contact:</label>
+                    <select name="reason" id="reason" value={mySelectInputValue} onChange={handleSelect}>
+                        <option value="none">Select</option>
+                        <option value="united">United</option>
+                        <option value="lift">Lift</option>
+                        <option value="vegetables">Vegetables</option>
+                        <option value="rudeness">Rudeness</option>
+                        <option value="vent">I just want to talk</option>
+                    </select>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="confession"></label>
+                    <textarea value={myTextInputValue.confession ?? ""}
+
+                        onChange={handleTextChange}
 
 
-</>;
+                        name="confession" id="confession" cols={30} rows={10}></textarea>
+                </div>
+                <button type="submit" disabled={invalid}>Confess</button>
+            </form>
+
+
+        </>);
+}
+
 export default Confession;

@@ -9,6 +9,6 @@ test('expect form to be in the component', () => {
 
 test('submit button should be disabled', () => {
     render(<Confession />);
-    const submitButton = screen.getByRole('button', { name: /submit/i });
+    const submitButton = screen.getByRole('button', { name: /Confess/i });
     expect(submitButton).toBeDisabled();
 });
