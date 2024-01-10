@@ -12,3 +12,9 @@ test('submit button should be disabled', () => {
     const submitButton = screen.getByRole('button', { name: /Confess/i });
     expect(submitButton).toBeDisabled();
 });
+
+test('renders an input field', () => {
+    render(<Confession />);
+    const inputElement = screen.getByRole('textbox');
+    expect(inputElement).toBeInTheDocument();
+});
