@@ -1,11 +1,15 @@
 import { ChangeEvent, FormEvent, useState, EventHandler } from 'react';
 import './Confession.css';
 import { MISDEMEANOURS } from '../types/misdemeanor.types';
+import { useMyContext } from '../hooks/useContext';
 type HtmlEvent = React.ChangeEvent<HTMLSelectElement>;
 
 
 
+
 const Confession: React.FC = () => {
+
+    const { data, setData } = useMyContext();
     const [mySelectInputValue, setMySelectInputValue] =
         useState<typeof MISDEMEANOURS>();
     const [invalid, setInvalid] = useState(true);
@@ -71,8 +75,15 @@ const Confession: React.FC = () => {
             body: JSON.stringify(jsonSubmitData)
 
         })
-            .then(response => response.json())
-            .then(data => console.log(data))
+            .then(response => {
+
+                if (response.status !== 200) {
+                    alert(response.statusText)
+                }
+                return response.json()
+            })
+            .then(dataReturned => setData([...data, dataReturned]))
+
             .catch((error) => {
                 console.error('Error:', error);
             });

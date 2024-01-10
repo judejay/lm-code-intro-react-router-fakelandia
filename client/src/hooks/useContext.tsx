@@ -1,11 +1,14 @@
-import { createContext, useContext } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { ResponseData } from "../components/Misdemeanor";
+import { Misdemeanour } from "../types/misdemeanor.types";
 
 interface Props {
   children?: React.ReactNode;
 }
 interface ContextProps {
   fetchData: () => Promise<ResponseData>;
+  data: Misdemeanour[];
+  setData: React.Dispatch<React.SetStateAction<Misdemeanour[]>>;
 }
 export const MisdemeanorContext = createContext<ContextProps | undefined>(
   undefined
@@ -23,14 +26,31 @@ export const useMyContext = (): ContextProps => {
 };
 
 export const MyContextProvider: React.FC<Props> = ({ children }) => {
-  const fetchData = async (): Promise<ResponseData> => {
+  const [data, setData] = useState<Misdemeanour[]>([]);
+
+  const fetchData = useCallback(async (): Promise<ResponseData> => {
     const response = await fetch(serverUrl);
     const data = await response.json();
     return data;
-  };
+  }, []);
+
+  useEffect(() => {
+    const fetchDataFromApi = async () => {
+      try {
+        const data = await fetchData();
+
+        setData(data.misdemeanours);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDataFromApi();
+  }, [fetchData, setData]);
 
   const contextValue: ContextProps = {
     fetchData,
+    data,
+    setData,
   };
 
   return (

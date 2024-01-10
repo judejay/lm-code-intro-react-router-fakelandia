@@ -1,6 +1,6 @@
 import { Misdemeanour } from "../types/misdemeanor.types";
 import { useMyContext } from "../hooks/useContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Incident from "./Incident";
 import "./Misdemeanor.css";
 export interface ResponseData {
@@ -8,8 +8,8 @@ export interface ResponseData {
 }
 
 const Misdemeanor: React.FC = () => {
-  const [data, setData] = useState<Misdemeanour[]>([]);
-  const { fetchData } = useMyContext();
+  //const [data, setData] = useState<Misdemeanour[]>([]);
+  const { data } = useMyContext();
   const [selectedMisdemeanor, setSelectedMisdemeanor] = useState('');
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -20,18 +20,7 @@ const Misdemeanor: React.FC = () => {
     ? data.filter(incident => incident.misdemeanour === selectedMisdemeanor)
     : data;
 
-  useEffect(() => {
-    const fetchDataFromApi = async () => {
-      try {
-        const data = await fetchData();
 
-        setData(data.misdemeanours);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchDataFromApi();
-  }, [fetchData]);
 
   return (
     <div className="table-container">
