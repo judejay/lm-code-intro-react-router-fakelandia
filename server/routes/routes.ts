@@ -67,6 +67,7 @@ function addAPIRoutes(app: Express) {
   console.log("📨  Adding POST confession route...");
   apiRouter.post("/confess/", async (req, res) => {
     const { body } = req;
+    console.log(`📨  Confession received:`, body);
 
     if (weaklyValidateConfession(body)) {
       const result = await handleConfession(body);

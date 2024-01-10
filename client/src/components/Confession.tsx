@@ -11,13 +11,13 @@ const Confession: React.FC = () => {
     const [invalid, setInvalid] = useState(true);
     const [myTextInputValue, setMyTextInputValue] = useState({
         subject: "",
-        confession: ""
+        details: ""
 
     });
 
     function validate() {
         if (
-            myTextInputValue.confession &&
+            (myTextInputValue.details !== "") &&
             myTextInputValue.subject &&
             mySelectInputValue
         ) {
@@ -56,6 +56,26 @@ const Confession: React.FC = () => {
 
     function handleSubmit(event: FormEvent<HTMLFormElement>): void {
         event.preventDefault();
+        const submitData = `{"subject": "${myTextInputValue.subject}", "reason": "${mySelectInputValue}", "details": "${myTextInputValue.details}"}`;
+        const jsonSubmitData = JSON.parse(submitData);
+        const headers = new Headers();
+
+        headers.append('Content-Type', 'application/json');
+        headers.append('Accept', 'application/json');
+        headers.append('Access-Control-Allow-Origin', 'http://localhost:5173');
+        headers.append("Access-Control-Allow-Methods", "POST");
+        headers.append("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        fetch('http://localhost:8080/api/confess', {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(jsonSubmitData)
+
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch((error) => {
+                console.error('Error:', error);
+            });
 
     }
 
@@ -92,12 +112,9 @@ const Confession: React.FC = () => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="confession"></label>
-                    <textarea value={myTextInputValue.confession ?? ""}
-
+                    <textarea value={myTextInputValue.details ?? ""}
                         onChange={handleTextChange}
-
-
-                        name="confession" id="confession" cols={30} rows={10}></textarea>
+                        name="details" id="details" cols={30} rows={10}></textarea>
                 </div>
                 <button type="submit" disabled={invalid}>Confess</button>
             </form>
